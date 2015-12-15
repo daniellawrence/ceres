@@ -56,7 +56,7 @@ class ModuleFunctionsTest(TestCase):
 
 class TimeSeriesDataTest(TestCase):
   def setUp(self):
-    self.time_series = TimeSeriesData(0, 50, 5, [float(x) for x in xrange(0, 10)])
+    self.time_series = TimeSeriesData(0, 50, 5, [float(x) for x in range(0, 10)])
 
   def test_timestamps_property(self):
     self.assertEqual(10, len(self.time_series.timestamps))
@@ -71,7 +71,7 @@ class TimeSeriesDataTest(TestCase):
 
   def test_merge_no_missing(self):
     # merge only has effect if time series has no gaps
-    other_series = TimeSeriesData(0, 25, 5, [float(x * x) for x in xrange(1, 6)])
+    other_series = TimeSeriesData(0, 25, 5, [float(x * x) for x in range(1, 6)])
     original_values = list(self.time_series)
     self.time_series.merge(other_series)
     self.assertEqual(original_values, list(self.time_series))
@@ -83,7 +83,7 @@ class TimeSeriesDataTest(TestCase):
 
   def test_merge_with_holes(self):
     values = []
-    for x in xrange(0, 10):
+    for x in range(0, 10):
       if x % 2 == 0:
         values.append(x)
       else:

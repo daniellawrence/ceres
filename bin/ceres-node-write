@@ -31,7 +31,7 @@ else:
   tree = getTree(fsPath)
 
   if not tree:
-    print "error: %s is not in a ceres tree" % fsPath
+    print("error: %s is not in a ceres tree" % fsPath)
     sys.exit(1)
 
   nodePath = tree.getNodePath(fsPath)
@@ -53,7 +53,7 @@ for datapoint in args[1:]:
 datapoints.sort()
 
 if not args:
-  print "error: no datapoints specified"
+  print("error: no datapoints specified")
   parser.print_usage()
   sys.exit(1)
 

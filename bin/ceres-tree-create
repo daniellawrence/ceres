@@ -11,7 +11,7 @@ parser.add_option('--verbose', action='store_true')
 options, args = parser.parse_args()
 
 if not args:
-  print "You must specify a root directory for the tree"
+  print("You must specify a root directory for the tree")
   parser.print_usage()
   sys.exit(1)
 
@@ -33,6 +33,6 @@ for arg in args[1:]:
   props[prop] = value
 
 if options.verbose:
-  print "Creating tree at %s with props=%s" % (root_dir, props)
+  print("Creating tree at %s with props=%s" % (root_dir, props))
 
 tree = CeresTree.createTree(root_dir, **props)

@@ -23,6 +23,6 @@ tree = CeresTree(root_dir)
 
 for node in tree.find(pattern, fromTime=options.fromtime, untilTime=options.untiltime):
   if options.fspath:
-    print node.fsPath
+    print(node.fsPath)
   else:
-    print node.nodePath
+    print(node.nodePath)

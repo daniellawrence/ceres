@@ -27,5 +27,5 @@ format = '!' + ('d' * (len(packedValues) / 8))
 values = struct.unpack(format, packedValues)
 
 for value in values:
-  print "[%d]\t%s\t%s" % (timestamp, time.ctime(timestamp), value)
+  print("[%d]\t%s\t%s" % (timestamp, time.ctime(timestamp), value))
   timestamp += timeStep

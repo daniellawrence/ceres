@@ -20,7 +20,10 @@ import struct
 import json
 import errno
 from math import isnan
-from itertools import izip
+try:
+  from itertools import izip
+except ImportError:
+  izip = zip
 from os.path import isdir, exists, join, dirname, abspath, getsize, getmtime
 from glob import glob
 from bisect import bisect_left
@@ -35,8 +38,8 @@ PACKED_NAN = struct.pack(DATAPOINT_FORMAT, NAN)
 MAX_SLICE_GAP = 80
 DEFAULT_TIMESTEP = 60
 DEFAULT_SLICE_CACHING_BEHAVIOR = 'none'
-SLICE_PERMS = 0644
-DIR_PERMS = 0755
+SLICE_PERMS = '0644'
+DIR_PERMS = '0755'
 
 
 class CeresTree(object):
@@ -312,7 +315,7 @@ used
       metadata = json.load(open(self.metadataFile, 'r'))
       self.timeStep = int(metadata['timeStep'])
       return metadata
-    except (KeyError, IOError, ValueError), e:
+    except (KeyError, IOError, ValueError) as e:
       raise CorruptNode(self, "Unable to parse node metadata: %s" % e.message)
 
   def writeMetadata(self, metadata):
@@ -693,7 +696,7 @@ class CeresSlice(object):
 
     try:
       filesize = getsize(self.fsPath)
-    except OSError, e:
+    except OSError as e:
       if e.errno == errno.ENOENT:
         raise SliceDeleted()
       else:
@@ -713,8 +716,8 @@ class CeresSlice(object):
       try:
         fileHandle.seek(byteOffset)
       except IOError:
-        print " IOError: fsPath=%s byteOffset=%d size=%d sequence=%s" % (
-            self.fsPath, byteOffset, filesize, sequence)
+        print(" IOError: fsPath=%s byteOffset=%d size=%d sequence=%s" % (
+            self.fsPath, byteOffset, filesize, sequence))
         raise
       fileHandle.write(packedValues)
 
@@ -762,7 +765,7 @@ class TimeSeriesData(object):
 
   @property
   def timestamps(self):
-    return xrange(self.startTime, self.endTime, self.timeStep)
+    return range(self.startTime, self.endTime, self.timeStep)
 
   def __iter__(self):
     return izip(self.timestamps, self.values)
